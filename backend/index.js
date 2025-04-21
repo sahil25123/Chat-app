@@ -8,8 +8,6 @@ const app = express();
 
 app.use(express.json());
 
-
-
 const port = process.env.PORT || 8001;
 app.get("/",(req,res)=>{
     res.send("Server is running ")
