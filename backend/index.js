@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoutes from "./Routes/authRoutes.js"
+import authRoutes from "./Routes/authRoutes.js";
+import msgRoutes from "./Routes/msgRoues.js";
 import connectToMongoDB from "./db/connect.js";
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.get("/",(req,res)=>{
 
 
 app.use("/api/auth",authRoutes);
+app.use("/api/message",msgRoutes);
 
 app.listen(port,()=>{
     connectToMongoDB();
