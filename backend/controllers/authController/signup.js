@@ -23,7 +23,6 @@ export const signupController = async (req,res)=>{
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const boyProfile = `https://avatar.iran.liara.run/public/boy?username=${Username}`;
-
         const girlProfile = `https://avatar.iran.liara.run/public/girl?username=${Username}`;
 
 
@@ -52,9 +51,6 @@ export const signupController = async (req,res)=>{
         res.status(400).json({error:"Invalid user data"})
        }
     }   
-
-
-    
 
     catch(error){
         console.log("error in the sign up controller", error)
