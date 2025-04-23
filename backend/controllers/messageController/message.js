@@ -27,7 +27,7 @@ const mesgController = async (req, res) => {
         await newMsg.save();
 
         if (newMsg) {
-            Conversation.messages.push(newMsg._id);
+            Conversation.message.push(newMsg._id);
             await Conversation.save();
         }
 
