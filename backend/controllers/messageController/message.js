@@ -1,26 +1,29 @@
 import { json } from "express";
-import conversation from "../../models/conversation.js";
-import message from "../../models/message.js";
+import Conversation from "../../models/conversation.js";
+import Message from "../../models/message.js";
 
 const mesgController = async (req, res) => {
     try {
         const { message: messageContent } = req.body;
         const { id: receiverId } = req.params;
         const senderId = req.user._id;
-        // console.log(senderId);
 
-        let Conversation = await conversation.findOne({
+        if (!messageContent || !receiverId || !senderId) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+
+        let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
         });
 
-        if (!Conversation) {
-            Conversation = await conversation.create({
+        if (!conversation) {
+            conversation = await Conversation.create({
                 participants: [senderId, receiverId],
-                messages: []
+                message: []
             });
         }
 
-        const newMsg = new message({
+        const newMsg = new Message({
             senderId,
             receiverId,       
             message: messageContent
@@ -29,8 +32,8 @@ const mesgController = async (req, res) => {
         await newMsg.save();
 
         if (newMsg) {
-            Conversation.message.push(newMsg._id);
-            await Conversation.save();
+            conversation.message.push(newMsg._id);
+            await conversation.save();
         }
 
         res.status(201).json({ newMsg });
@@ -40,24 +43,33 @@ const mesgController = async (req, res) => {
     }
 };
 
-export default  mesgController;
-
+export default mesgController;
 
 export const getMessages = async(req,res)=>{
     try {
         const {id:userToChatId} = req.params;
         const senderId = req.user._id;
-        // console.log(senderId);
 
-        const existingConversation = await conversation.findOne({
+        if (!userToChatId || !senderId) {
+            return res.status(400).json({ error: "Missing required parameters" });
+        }
+
+        const existingConversation = await Conversation.findOne({
             participants: {$all: [senderId, userToChatId]},
-        }).populate("messages");
+        }).populate({
+            path: 'message',
+            options: { sort: { createdAt: -1 } }
+        });
 
         if(!existingConversation) {
             return res.status(404).json({message: "No conversation found"});
         }
 
-        res.status(200).json(existingConversation.messages);
+        if (!existingConversation.message || existingConversation.message.length === 0) {
+            return res.status(200).json({ message: "No messages found", messages: [] });
+        }
+
+        res.status(200).json(existingConversation.message);
     }
     catch(error) {
         console.log("Error occurred in the getMessage", error);

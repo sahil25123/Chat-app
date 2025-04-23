@@ -6,19 +6,19 @@ const converSchema = new mongoose.Schema({
         {
             type: mongoose.Schema.Types.ObjectId,
             ref:"User",
+            required: true
         }
     ], 
     message :[
         {
-            type:mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref:"Message",
+            required: true,
             default:[]
-        },
-        
+        }
     ]
-
 },{timestamps:true})
 
-const conversation = mongoose.model("conversation" , converSchema)
-export default conversation;
+const Conversation = mongoose.model("Conversation", converSchema)
+export default Conversation;
 
