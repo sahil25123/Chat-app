@@ -1,10 +1,12 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-body {
-	background: linear-gradient(hsla(0, 0%, 100%, 0.1), rgba(255, 255, 255, 0.05)), url("/bg.avif");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-}
 
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5e6ff 0%, #e6f0ff 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+} 
