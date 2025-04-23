@@ -1,9 +1,11 @@
 import express from "express";
 import mesgController from "../controllers/messageController/message.js";
+import protectRoute from "../middleware/ProtectRoute.js";
+
 
 
 const router  = express.Router();
 
-router.post("/send/:id",mesgController);
+router.post("/send/:id", protectRoute,mesgController);
 
 export default router;

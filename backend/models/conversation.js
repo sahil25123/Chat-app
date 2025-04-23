@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "./user";
+import User from "./user.js";
 
 const converSchema = new mongoose.Schema({
     participants:[
@@ -18,3 +18,7 @@ const converSchema = new mongoose.Schema({
     ]
 
 },{timestamps:true})
+
+const conversation = mongoose.model("conversation" , converSchema)
+export default conversation;
+
