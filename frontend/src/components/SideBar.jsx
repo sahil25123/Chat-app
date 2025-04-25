@@ -24,7 +24,7 @@ function SideBar() {
           <div className='divider my-2'></div>
 
           {/* Conversations */}
-          <div className='flex-1 overflow-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent'>
+          <div className='flex-1 min-h-0 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-100'>
             <Converations />
           </div>
 
