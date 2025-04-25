@@ -1,11 +1,12 @@
 import React from 'react'
 import { CiLogout } from "react-icons/ci";
+
 function LogoutBtn() {
   return (
-    <div className='mt-auto '>
-      <CiLogout className="w-6 h-6 text-white cursor-pointer black"></CiLogout>
-      
-    </div>
+    <button className='flex items-center justify-center gap-2 w-full py-2 px-4 rounded-lg bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 transition-opacity'>
+      <CiLogout className="w-5 h-5" />
+      <span className='font-medium'>Logout</span>
+    </button>
   )
 }
 

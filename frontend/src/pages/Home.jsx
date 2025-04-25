@@ -4,14 +4,16 @@ import MessageContainer from '../components/Message_Components/MessageContainer'
 
 function Home() {
   return (
-    <div className="flex min-h-[80vh] w-full max-w-6xl mx-auto rounded-2xl overflow-hidden shadow-xl border border-white/30 bg-white/80 backdrop-blur-sm">
-      {/* Sidebar - matches the card styling from login */}
-      <div className="hidden md:flex md:w-1/3 lg:w-1/4 bg-gradient-to-b from-purple-50 to-blue-50 border-r border-white/30">
+    <div className="flex h-screen w-full bg-gradient-to-br from-blue-50 to-purple-100">
+      {/* Sidebar */}
+      <div className="w-1/3 lg:w-1/4 h-full">
         <SideBar />
       </div>
       
-      <MessageContainer/>
-      
+      {/* Message Container */}
+      <div className="flex-1 h-full">
+        <MessageContainer />
+      </div>
     </div>
   )
 }

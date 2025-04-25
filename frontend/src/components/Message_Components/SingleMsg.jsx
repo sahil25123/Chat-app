@@ -2,26 +2,34 @@ import React from 'react'
 
 function SingleMsg({ message = "Hello there!", sender = true, time = "12:45", status = "Delivered" }) {
   return (
-    <div className={`chat ${sender ? 'chat-end' : 'chat-start'}`}>
-      <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-          <img
-            alt="User avatar"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-        </div>
-      </div>
-      <div className="chat-header text-gray-300">
-        {sender ? 'You' : 'Obi-Wan Kenobi'}
-        <time className="text-xs opacity-50 ml-2">{time}</time>
-      </div>
-      <div className={`chat-bubble ${sender ? 'bg-blue-600' : 'bg-gray-700'} text-white`}>
-        {message}
-      </div>
-      {sender && (
-        <div className="chat-footer opacity-50 text-xs">
-          {status}
+    <div className={`flex ${sender ? 'justify-end' : 'justify-start'} items-end gap-2`}>
+      {!sender && (
+        <div className="avatar">
+          <div className="w-8 h-8 rounded-full ring-1 ring-gray-200">
+            <img
+              alt="User avatar"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
         </div>
       )}
+      
+      <div className={`flex flex-col ${sender ? 'items-end' : 'items-start'} max-w-[70%]`}>
+        <div className={`rounded-2xl px-4 py-2 ${
+          sender 
+            ? 'bg-gradient-to-r from-primary to-secondary text-white rounded-br-none' 
+            : 'bg-gray-100 text-gray-800 rounded-bl-none'
+        }`}>
+          <p className="text-sm">{message}</p>
+        </div>
+        <div className="flex items-center gap-1 mt-1">
+          <span className="text-xs text-gray-500">{time}</span>
+          {sender && (
+            <span className="text-xs text-gray-500">
+              {status === "Delivered" ? "✓" : status === "Seen" ? "✓✓" : ""}
+            </span>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

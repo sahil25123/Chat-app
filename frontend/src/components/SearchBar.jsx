@@ -3,12 +3,13 @@ import { FaSearch } from "react-icons/fa";
 
 function SearchBar() {
   return (
-    <div>
-        <form className='flex items-center gap-2'>
-            <input type='text' placeholder='Search...' className='input input-bordered rounded-full'></input>
-            <button type='submit' className='btn btn-circle bg-sky-500 text-white'> <FaSearch /> </button>
-        </form>
-      
+    <div className='relative'>
+      <input 
+        type='text' 
+        placeholder='Search conversations...' 
+        className='w-full pl-10 pr-4 py-2 rounded-full bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-gray-800 placeholder-gray-500'
+      />
+      <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
     </div>
   )
 }

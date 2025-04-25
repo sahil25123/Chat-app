@@ -27,7 +27,7 @@ export default function Login() {
               <input 
                 type="text" 
                 placeholder="cool_user123" 
-                className="input input-bordered w-full focus:ring-2 focus:ring-primary rounded-xl" 
+                className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
 
@@ -39,7 +39,7 @@ export default function Login() {
               <input 
                 type="password" 
                 placeholder="••••••••" 
-                className="input input-bordered w-full focus:ring-2 focus:ring-primary rounded-xl" 
+                className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
 

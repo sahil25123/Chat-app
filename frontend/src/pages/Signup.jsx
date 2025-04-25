@@ -29,7 +29,7 @@ export default function Signup() {
               <input 
                 type="text" 
                 placeholder="John Doe" 
-                className="input input-bordered w-full focus:ring-2 focus:ring-primary rounded-xl" 
+                className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
 
@@ -41,7 +41,7 @@ export default function Signup() {
               <input 
                 type="text" 
                 placeholder="johndoe" 
-                className="input input-bordered w-full focus:ring-2 focus:ring-primary rounded-xl" 
+                className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
 
@@ -52,8 +52,8 @@ export default function Signup() {
               </label>
               <input 
                 type="password" 
-                placeholder="Enter Password" 
-                className="input input-bordered w-full focus:ring-2 focus:ring-primary rounded-xl" 
+                placeholder="••••••••" 
+                className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
 
@@ -64,16 +64,21 @@ export default function Signup() {
               </label>
               <input 
                 type="password" 
-                placeholder="Confirm Password" 
-                className="input input-bordered w-full focus:ring-2 focus:ring-primary rounded-xl" 
+                placeholder="••••••••" 
+                className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
 
-            {/* Gender Checkbox Component */}
-            <GenderCheckbox />
+            {/* Gender Selection */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text text-gray-600">Gender</span>
+              </label>
+              <GenderCheckbox />
+            </div>
 
             {/* Login Link */}
-            <div className="text-center mt-2">
+            <div className="text-center mt-4">
               <span className="text-gray-600">Already have an account? </span>
               <Link to="/login" className="link link-primary font-medium">Login here</Link>
             </div>
@@ -83,7 +88,7 @@ export default function Signup() {
               type="submit" 
               className="btn btn-primary w-full mt-4 rounded-xl shadow-md hover:shadow-lg transition-all"
             >
-              Create Account 🎉
+              Create Account 🚀
             </button>
           </form>
         </div>

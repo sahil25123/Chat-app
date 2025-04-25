@@ -12,20 +12,20 @@ function MessageInput() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='px-4 my-3'>
-      <div className='w-full relative'>
+    <form onSubmit={handleSubmit} className='w-full'>
+      <div className='relative'>
         <input
           type="text"
-          className='border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+          className='w-full pr-12 py-3 px-4 rounded-full bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-gray-800 placeholder-gray-500'
           placeholder='Type a message...'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
         <button
           type='submit'
-          className='absolute inset-y-0 right-0 flex items-center pe-3 text-blue-500 hover:text-blue-400 transition-colors'
+          className='absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 transition-opacity'
         >
-          <BsSend className='w-5 h-5' />
+          <BsSend className='w-4 h-4' />
         </button>
       </div>
     </form>

@@ -4,16 +4,20 @@ import Messages from './Messages'
 import { TiMessages } from "react-icons/ti"
 
 function MessageContainer() {
-  const noChatSelected = true; // Changed to lowercase to follow React conventions
+  const noChatSelected = false;
   
   if (noChatSelected) {
     return (
-      <div className='flex flex-col flex-1 bg-gray-800'>
-        <div className='flex items-center justify-center w-full h-full'>
-          <div className='px-4 text-center sm:text-lg md:text-xl text-gray-200 font-semibold flex flex-col items-center gap-2'>
-            <p>Welcome to ChatterBox</p>
-            <p>Select a chat to start messaging</p>
-            <TiMessages className="text-3xl md:text-6xl text-center" />
+      <div className='flex flex-col h-full bg-gradient-to-br from-blue-50 to-purple-100 p-4'>
+        <div className='flex items-center justify-center h-full'>
+          <div className='card w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl border border-white/30'>
+            <div className='card-body p-8'>
+              <div className='flex flex-col items-center gap-4'>
+                <h2 className='text-2xl font-bold text-gray-800'>Welcome to ChatterBox</h2>
+                <p className='text-gray-600 text-center'>Select a chat to start messaging</p>
+                <TiMessages className="text-5xl text-primary" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -21,25 +25,35 @@ function MessageContainer() {
   }
 
   return (
-    <div className='flex flex-col flex-1 bg-gray-800'>
-      {/* Chat Header */}
-      <div className='bg-slate-700 px-4 py-2 mb-2 flex items-center gap-2'>
-        <div className="avatar online">
-          <div className="w-10 rounded-full">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="user avatar" />
+    <div className='flex flex-col h-full bg-gradient-to-br from-blue-50 to-purple-100 p-4'>
+      <div className='card w-full h-full bg-white/80 backdrop-blur-sm shadow-xl border border-white/30'>
+        <div className='card-body p-0 flex flex-col h-full'>
+          {/* Chat Header */}
+          <div className='bg-gradient-to-r from-primary to-secondary px-6 py-4 rounded-t-2xl'>
+            <div className='flex items-center gap-4'>
+              <div className="avatar online">
+                <div className="w-12 rounded-full ring ring-white ring-offset-2">
+                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="user avatar" />
+                </div>
+              </div>
+              <div className='flex flex-col'>
+                <span className='text-white font-bold text-lg'>John Doe</span>
+                <span className='text-white/80 text-sm'>Online</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Messages */}
+          <div className='flex-1 overflow-hidden'>
+            <Messages />
+          </div>
+          
+          {/* Message Input */}
+          <div className='p-4 border-t border-gray-200'>
+            <MessageInput />
           </div>
         </div>
-        <div className='flex flex-col'>
-          <span className='text-gray-200 font-bold'>John Doe</span>
-          <span className='text-xs text-gray-400'>Online</span>
-        </div>
       </div>
-
-      {/* Messages */}
-      <Messages />
-      
-      {/* Message Input */}
-      <MessageInput />
     </div>
   );
 }

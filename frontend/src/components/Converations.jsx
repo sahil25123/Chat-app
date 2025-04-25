@@ -3,15 +3,15 @@ import Conversation from './Conversation'
 
 function Converations() {
   return (
-    <div>
-        <Conversation/>
-        <Conversation/>
-        <Conversation/>
-        <Conversation/>
-        <Conversation/>
-        <Conversation/>
-
-      
+    <div className='space-y-2'>
+      <Conversation />
+      <Conversation />
+      <Conversation />
+      <Conversation />
+      <Conversation />
+      <Conversation />
+      <Conversation />
+      <Conversation />
     </div>
   )
 }

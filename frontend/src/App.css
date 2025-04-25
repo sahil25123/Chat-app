@@ -29,6 +29,7 @@ body::before {
   background-size: 50px 50px;
   z-index: -1;
   animation: moveParticles 100s linear infinite;
+  color: #121212;
 }
 
 @keyframes moveParticles {
