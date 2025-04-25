@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GenderCheckbox from "./GenderCheckbox.jsx";
 import {Link} from "react-router-dom";
 
 export default function Signup() {
+  const [Inputs , SetInputs]  = useState({
+    fullName : "",
+    userName :"",
+    password : "",
+    confirmPassword :"",
+    gender :""
+})
 
 
   return (
@@ -26,7 +33,8 @@ export default function Signup() {
               <label className="label">
                 <span className="label-text text-gray-600">Full Name</span>
               </label>
-              <input 
+              <input  value= {Inputs.fullName}
+              onChange = {(e) => SetInputs({... Inputs , fullName:e.target.value})}
                 type="text" 
                 placeholder="John Doe" 
                 className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
