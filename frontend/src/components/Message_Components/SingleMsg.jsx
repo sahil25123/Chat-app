@@ -1,40 +1,27 @@
 import React from 'react'
 
-function SingleMsg() {
+function SingleMsg({ message = "Hello there!", sender = true, time = "12:45", status = "Delivered" }) {
   return (
-    <div>
-        <div className="chat chat-start">
-  <div className="chat-image avatar">
-    <div className="w-10 rounded-full">
-      <img
-        alt="Tailwind CSS chat bubble component"
-        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-    </div>
-  </div>
-  <div className="chat-header">
-    Obi-Wan Kenobi
-    <time className="text-xs opacity-50">12:45</time>
-  </div>
-  <div className="chat-bubble">You were the Chosen One!</div>
-  <div className="chat-footer opacity-50">Delivered</div>
-</div>
-<div className="chat chat-end">
-  <div className="chat-image avatar">
-    <div className="w-10 rounded-full">
-      <img
-        alt="Tailwind CSS chat bubble component"
-        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-    </div>
-  </div>
-  <div className="chat-header">
-    Anakin
-    <time className="text-xs opacity-50">12:46</time>
-  </div>
-  <div className="chat-bubble">I hate you!</div>
-  <div className="chat-footer opacity-50">Seen at 12:46</div>
-  
-</div>
-      
+    <div className={`chat ${sender ? 'chat-end' : 'chat-start'}`}>
+      <div className="chat-image avatar">
+        <div className="w-10 rounded-full">
+          <img
+            alt="User avatar"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        </div>
+      </div>
+      <div className="chat-header text-gray-300">
+        {sender ? 'You' : 'Obi-Wan Kenobi'}
+        <time className="text-xs opacity-50 ml-2">{time}</time>
+      </div>
+      <div className={`chat-bubble ${sender ? 'bg-blue-600' : 'bg-gray-700'} text-white`}>
+        {message}
+      </div>
+      {sender && (
+        <div className="chat-footer opacity-50 text-xs">
+          {status}
+        </div>
+      )}
     </div>
   )
 }
