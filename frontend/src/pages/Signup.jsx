@@ -1,7 +1,10 @@
 import React from 'react';
 import GenderCheckbox from "./GenderCheckbox.jsx";
+import {Link} from "react-router-dom";
 
 export default function Signup() {
+
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 p-4">
       <div className="card w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl border border-white/30">
@@ -72,7 +75,7 @@ export default function Signup() {
             {/* Login Link */}
             <div className="text-center mt-2">
               <span className="text-gray-600">Already have an account? </span>
-              <a href="#" className="link link-primary font-medium">Login here</a>
+              <Link to="/login" className="link link-primary font-medium">Login here</Link>
             </div>
 
             {/* Sign Up Button */}
