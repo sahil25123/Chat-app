@@ -10,9 +10,15 @@ export default function Signup() {
     confirmPassword :"",
     gender :""
 })
-const handleSubmit = (e)=>{
+
+const handleCheckBoxChange = (gender) =>{
+  SetInputs({...Inputs,gender})
+}
+const handleSubmit =  async (e)=>{
   e.preventDefault();
-  console.log(Inputs);
+  // await signup(Inputs);
+  
+  // console.log(Inputs);
 }
 
 
@@ -92,7 +98,7 @@ const handleSubmit = (e)=>{
               <label className="label">
                 <span className="label-text text-gray-600">Gender</span>
               </label>
-              <GenderCheckbox />
+              <GenderCheckbox onCheckboxChange = {handleCheckBoxChange} selectedGender = {Inputs.gender} />
             </div>
 
             {/* Login Link */}
