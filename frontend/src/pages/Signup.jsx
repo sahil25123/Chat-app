@@ -10,6 +10,10 @@ export default function Signup() {
     confirmPassword :"",
     gender :""
 })
+const handleSubmit = (e)=>{
+  e.preventDefault();
+  console.log(Inputs);
+}
 
 
   return (
@@ -27,7 +31,7 @@ export default function Signup() {
           </div>
 
           {/* Signup Form */}
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             {/* Full Name Field */}
             <div className="form-control">
               <label className="label">
@@ -49,6 +53,8 @@ export default function Signup() {
               <input 
                 type="text" 
                 placeholder="johndoe" 
+                value={Inputs.userName}
+                onChange={(e) =>SetInputs({...Inputs , userName:e.target.value})}
                 className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
             </div>
@@ -60,6 +66,8 @@ export default function Signup() {
               </label>
               <input 
                 type="password" 
+                value={Inputs.password}
+                onChange={(e) =>SetInputs({...Inputs , password:e.target.value})}
                 placeholder="••••••••" 
                 className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
               />
@@ -71,6 +79,8 @@ export default function Signup() {
                 <span className="label-text text-gray-600">Confirm Password</span>
               </label>
               <input 
+              value={Inputs.confirmPassword}
+              onChange={(e) =>SetInputs({...Inputs , confirmPassword:e.target.value})}
                 type="password" 
                 placeholder="••••••••" 
                 className="input input-bordered w-full bg-white border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" 
