@@ -6,7 +6,7 @@ const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const { setAuthUser } = useAuthContext();
 
-    const login = async ({ username, password, rememberMe }) => {
+    const login = async ({ username, password }) => {
         const success = handleInputErrors({ username, password });
         if (!success) return;
 
@@ -15,7 +15,8 @@ const useLogin = () => {
             const res = await fetch("http://localhost:9000/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ Username: username, password }),
+                credentials: 'include' // Important for receiving cookies
             });
 
             const data = await res.json();

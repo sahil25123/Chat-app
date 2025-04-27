@@ -11,15 +11,32 @@ export const AuthContextProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
-        try {
-            const storedUser = localStorage.getItem("chat-user");
-            if (storedUser) {
-                setAuthUser(JSON.parse(storedUser));
+        const checkUser = async () => {
+            try {
+                const storedUser = localStorage.getItem("chat-user");
+                if (storedUser) {
+                    const parsedUser = JSON.parse(storedUser);
+                    // Verify the user is still valid by making a request
+                    const res = await fetch("http://localhost:9000/api/users", {
+                        credentials: 'include'
+                    });
+                    
+                    if (res.ok) {
+                        setAuthUser(parsedUser);
+                    } else {
+                        // If the request fails, clear the stored user
+                        localStorage.removeItem("chat-user");
+                        setAuthUser(null);
+                    }
+                }
+            } catch (error) {
+                console.error("Error checking user authentication:", error);
+                localStorage.removeItem("chat-user");
+                setAuthUser(null);
             }
-        } catch (error) {
-            console.error("Error loading user from localStorage:", error);
-            localStorage.removeItem("chat-user");
-        }
+        };
+
+        checkUser();
     }, []);
 
     return (

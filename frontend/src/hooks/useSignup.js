@@ -19,11 +19,12 @@ const useSignup = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     fullName,
-                    userName,
+                    Username: userName,
                     password,
                     confirmPassword,
                     gender
-                })
+                }),
+                credentials: 'include' // Important for receiving cookies
             });
             
             const data = await res.json();
