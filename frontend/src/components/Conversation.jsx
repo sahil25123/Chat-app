@@ -8,14 +8,14 @@ function Conversation({ conversation }) {
   return (
     <div 
       className={`flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors ${
-        isSelected ? 'bg-gray-100' : ''
+        isSelected ? 'bg-gray-200' : ''
       }`}
       onClick={() => setSelectedConversation(conversation)}
     >
       <div className="avatar online">
         <div className="w-12 h-12 rounded-full ring-2 ring-white">
           <img 
-            src={conversation.profilePic || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"} 
+            src={conversation.ProfilePic} 
             alt="user avatar"
           />
         </div>

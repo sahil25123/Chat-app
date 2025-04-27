@@ -2,9 +2,11 @@ import React from 'react'
 import MessageInput from './MessageInput'
 import Messages from './Messages'
 import { TiMessages } from "react-icons/ti"
+import useConversation from '../../zustand/useConversation'
 
 function MessageContainer() {
-  const noChatSelected = false;
+  const { selectedConversation } = useConversation();
+  const noChatSelected = !selectedConversation;
   
   if (noChatSelected) {
     return (
@@ -33,11 +35,11 @@ function MessageContainer() {
             <div className='flex items-center gap-4'>
               <div className="avatar online">
                 <div className="w-12 rounded-full ring ring-white ring-offset-2">
-                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="user avatar" />
+                  <img src={selectedConversation.ProfilePic} alt="user avatar" />
                 </div>
               </div>
               <div className='flex flex-col'>
-                <span className='text-white font-bold text-lg'>John Doe</span>
+                <span className='text-white font-bold text-lg'>{selectedConversation.fullName}</span>
                 <span className='text-white/80 text-sm'>Online</span>
               </div>
             </div>

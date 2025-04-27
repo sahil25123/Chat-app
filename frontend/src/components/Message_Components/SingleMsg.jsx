@@ -1,6 +1,9 @@
 import React from 'react'
+import useConversation from '../../zustand/useConversation'
 
 function SingleMsg({ message = "Hello there!", sender = true, time = "12:45", status = "Delivered" }) {
+  const { selectedConversation } = useConversation();
+
   return (
     <div className={`flex ${sender ? 'justify-end' : 'justify-start'} items-end gap-2`}>
       {!sender && (
@@ -8,7 +11,7 @@ function SingleMsg({ message = "Hello there!", sender = true, time = "12:45", st
           <div className="w-8 h-8 rounded-full ring-1 ring-gray-200">
             <img
               alt="User avatar"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              src={selectedConversation?.ProfilePic} />
           </div>
         </div>
       )}
