@@ -5,6 +5,7 @@ function MessageInput() {
   const [message, setMessage] = useState("")
 
   const handleSubmit = (e) => {
+    const [message , sendMessage] = useState("");
     e.preventDefault()
     if (!message.trim()) return
     // Handle message sending here

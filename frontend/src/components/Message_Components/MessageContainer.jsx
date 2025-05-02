@@ -7,7 +7,9 @@ import useConversation from '../../zustand/useConversation'
 function MessageContainer() {
   const { selectedConversation } = useConversation();
   const noChatSelected = !selectedConversation;
-  
+
+ 
+
   if (noChatSelected) {
     return (
       <div className='flex flex-col h-full bg-gradient-to-br from-blue-50 to-purple-100 p-4'>
