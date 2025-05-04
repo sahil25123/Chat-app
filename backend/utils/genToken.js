@@ -11,7 +11,7 @@ const genToken_setCookie = (userId, res) =>{
         secure : process.env.NODE_ENV !== "devlopment"
 
     })
-    
+    return token;
 };
 
 export default genToken_setCookie;

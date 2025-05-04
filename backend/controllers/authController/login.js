@@ -8,7 +8,6 @@ export const loginForm = (req,res)=>{
 }
 
 export const loginController =  async (req, res) =>{
- 
     try{
         const {Username , password} = req.body;
 
@@ -18,7 +17,8 @@ export const loginController =  async (req, res) =>{
         if(!user || !isPasswordCorrect){
             return res.status(400).json({error:"Invalid Username or password"})
         }
-        genToken_setCookie(user._id,res);
+        
+        const token = genToken_setCookie(user._id, res);
 
         res.status(201).json({
             _id :user._id,
@@ -26,17 +26,13 @@ export const loginController =  async (req, res) =>{
             Username:user.Username,
             ProfilePic:user.ProfilePic,
             Message:"Successfully Login",
-            Welcome: user.Username
-
+            Welcome: user.Username,
+            token:token,
         });
-         
 
     }
     catch(error){
         console.log("error in the Login  controller", error)
         res.status(500).json({Error:"Internal Server Error"})
     }
-    
-
-
 }

@@ -5,20 +5,28 @@ import { useAuthContext } from "../context/AuthContext";
 
 const useGetMessages = () => {
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 	const { messages, setMessages, selectedConversation } = useConversation();
 	const { authUser } = useAuthContext();
 
 	useEffect(() => {
 		const getMessages = async () => {
+			// Debug logging
+			// // console.log("Fetching messages for conversation:", {
+			// 	conversationId: selectedConversation?._id,
+			// 	hasToken: !!authUser?.token
+			// });
+
 			if (!selectedConversation?._id || !authUser?.token) {
+				console.log("Skipping message fetch - missing conversation or token");
 				setMessages([]);
 				return;
 			}
 
 			setLoading(true);
+			setError(null);
 			try {
-				const res = await fetch(`http://localhost:8001/api/message/${selectedConversation._id}`, {
-					method: "GET",
+				const res = await fetch(`http://localhost:9000/api/message/${selectedConversation._id}`, {
 					headers: {
 						"Authorization": `Bearer ${authUser.token}`,
 						"Content-Type": "application/json"
@@ -32,19 +40,41 @@ const useGetMessages = () => {
 				}
 
 				const data = await res.json();
+				// console.log("Received message data:", data);
+
 				if (data.error) throw new Error(data.error);
 				
-				// Ensure we have an array of messages
-				const messagesArray = Array.isArray(data) ? data : data.messages || [];
+				// Handle all possible response formats
+				let messagesArray = [];
+				if (Array.isArray(data)) {
+					messagesArray = data;
+				} else if (data.messages) {
+					messagesArray = data.messages;
+				} else if (data.newMsg) {
+					messagesArray = [data.newMsg];
+				} else if (data.message) {
+					messagesArray = [data.message];
+				}
+				
+				// Validate message structure
+				const validMessages = messagesArray.filter(msg => 
+					msg && 
+					msg._id && 
+					msg.message && 
+					msg.senderId && 
+					msg.createdAt
+				);
+
 				
 				// Sort messages by createdAt
-				const sortedMessages = messagesArray.sort((a, b) => 
+				const sortedMessages = validMessages.sort((a, b) => 
 					new Date(a.createdAt) - new Date(b.createdAt)
 				);
 
 				setMessages(sortedMessages);
 			} catch (error) {
 				console.error("Error fetching messages:", error);
+				setError(error.message);
 				toast.error(error.message || "Failed to fetch messages");
 				setMessages([]);
 			} finally {
@@ -53,9 +83,9 @@ const useGetMessages = () => {
 		};
 
 		getMessages();
-	}, [selectedConversation?._id, setMessages, authUser]);
+	}, [selectedConversation?._id, authUser, setMessages]);
 
-	return { messages, loading };
+	return { messages, loading, error };
 };
 
 export default useGetMessages;

@@ -5,6 +5,15 @@ import { useAuthContext } from '../../context/AuthContext'
 function SingleMsg({ message }) {
   const { selectedConversation } = useConversation();
   const { authUser } = useAuthContext();
+  
+  // Debug logging
+  // console.log("Rendering message:", message);
+  
+  if (!message || !message.senderId) {
+    console.error("Invalid message data:", message);
+    return null;
+  }
+
   const isSender = message.senderId._id === authUser._id;
 
   return (

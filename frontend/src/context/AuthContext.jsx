@@ -23,6 +23,8 @@ export const AuthContextProvider = ({ children }) => {
                     
                     if (res.ok) {
                         setAuthUser(parsedUser);
+                        // console.log("authUser:", parsedUser);
+                        // console.log("authUser.token:", parsedUser?.token);
                     } else {
                         // If the request fails, clear the stored user
                         localStorage.removeItem("chat-user");
