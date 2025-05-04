@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { BsSend, BsEmojiSmile } from "react-icons/bs"
 import useSendMessage from '../../hooks/useSendMessage'
-import useConversation from '../../zustand/useConversation'
+// import useConversation from '../../zustand/useConversation'
 import toast from 'react-hot-toast'
 
 function MessageInput() {
   const [message, setMessage] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const { loading, sendMessage } = useSendMessage()
-  const { addMessage } = useConversation()
+  // const { addMessage } = useConversation()
   const inputRef = useRef(null)
   const typingTimeout = useRef(null)
 

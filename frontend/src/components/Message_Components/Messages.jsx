@@ -10,33 +10,20 @@ function Messages() {
   const messagesEndRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Debug logging
-  useEffect(() => {
-    // console.log("Messages Debug:", {
-    //   selectedConversation: selectedConversation?._id,
-    //   messagesCount: messages?.length,
-    //   loading,
-    //   error,
-    //   messages: messages
-    // });
-  }, [messages, loading, error, selectedConversation]);
-
-  const scrollToBottom = () => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-      setIsScrolled(true);
-    }
-  };
-
   const handleScroll = (e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
-    const isAtBottom = scrollHeight - scrollTop === clientHeight;
-    setIsScrolled(isAtBottom);
+    setIsScrolled(scrollTop < scrollHeight - clientHeight - 100);
   };
 
   useEffect(() => {
-    if (isScrolled) {
-      scrollToBottom();
+    if (messages?.length > 0) {
+      const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      };
+      
+      // Small delay to ensure DOM is updated
+      const timer = setTimeout(scrollToBottom, 50);
+      return () => clearTimeout(timer);
     }
   }, [messages]);
 
