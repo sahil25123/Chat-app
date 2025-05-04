@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { BsSend } from "react-icons/bs"
+import useSendMessage from '../../hooks/useSendMessage'
 
 function MessageInput() {
   const [message, setMessage] = useState("")
+  const { loading, sendMessage } = useSendMessage()
 
-  const handleSubmit = (e) => {
-    const [message , sendMessage] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!message.trim()) return
-    // Handle message sending here
+    if (!message.trim()) return;
+    
+    await sendMessage(message);
     setMessage("")
   }
 
@@ -26,7 +28,7 @@ function MessageInput() {
           type='submit'
           className='absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-gradient-to-r from-primary to-secondary text-white hover:opacity-90 transition-opacity'
         >
-          <BsSend className='w-4 h-4' />
+          {loading ? <div className='loading loading-spinner'></div> : <BsSend className='w-4 h-4' />}
         </button>
       </div>
     </form>
