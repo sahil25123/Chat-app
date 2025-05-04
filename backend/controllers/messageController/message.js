@@ -36,7 +36,12 @@ const mesgController = async (req, res) => {
             await conversation.save();
         }
 
-        res.status(201).json({ newMsg });
+        // Populate the sender and receiver details
+        const populatedMsg = await Message.findById(newMsg._id)
+            .populate('senderId', 'fullName ProfilePic')
+            .populate('receiverId', 'fullName ProfilePic');
+
+        res.status(201).json({ newMsg: populatedMsg });
     } catch (error) {
         console.log("Error in the send message Controller", error);
         res.status(500).json({ error: "Internal server error" });
@@ -58,7 +63,11 @@ export const getMessages = async(req,res)=>{
             participants: {$all: [senderId, userToChatId]},
         }).populate({
             path: 'message',
-            options: { sort: { createdAt: -1 } }
+            populate: {
+                path: 'senderId receiverId',
+                select: 'fullName ProfilePic'
+            },
+            options: { sort: { createdAt: 1 } }
         });
 
         if(!existingConversation) {
@@ -66,7 +75,7 @@ export const getMessages = async(req,res)=>{
         }
 
         if (!existingConversation.message || existingConversation.message.length === 0) {
-            return res.status(200).json({ message: "No messages found", messages: [] });
+            return res.status(200).json({ messages: [] });
         }
 
         res.status(200).json(existingConversation.message);

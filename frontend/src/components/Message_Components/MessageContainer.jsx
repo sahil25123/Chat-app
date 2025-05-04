@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import MessageInput from './MessageInput'
 import Messages from './Messages'
 import { TiMessages } from "react-icons/ti"
@@ -7,8 +7,15 @@ import useConversation from '../../zustand/useConversation'
 function MessageContainer() {
   const { selectedConversation } = useConversation();
   const noChatSelected = !selectedConversation;
+  const messagesEndRef = useRef(null);
 
- 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [selectedConversation]);
 
   if (noChatSelected) {
     return (
@@ -37,7 +44,13 @@ function MessageContainer() {
             <div className='flex items-center gap-4'>
               <div className="avatar online">
                 <div className="w-12 rounded-full ring ring-white ring-offset-2">
-                  <img src={selectedConversation.ProfilePic} alt="user avatar" />
+                  <img 
+                    src={selectedConversation.ProfilePic || "https://via.placeholder.com/48"} 
+                    alt="user avatar" 
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/48";
+                    }}
+                  />
                 </div>
               </div>
               <div className='flex flex-col'>
@@ -50,6 +63,7 @@ function MessageContainer() {
           {/* Messages */}
           <div className='flex-1 min-h-0 overflow-hidden'>
             <Messages />
+            <div ref={messagesEndRef} />
           </div>
           
           {/* Message Input */}

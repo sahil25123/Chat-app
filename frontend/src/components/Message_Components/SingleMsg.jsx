@@ -1,34 +1,43 @@
 import React from 'react'
 import useConversation from '../../zustand/useConversation'
+import { useAuthContext } from '../../context/AuthContext'
 
-function SingleMsg({ message = "Hello there!", sender = true, time = "12:45", status = "Delivered" }) {
+function SingleMsg({ message }) {
   const { selectedConversation } = useConversation();
+  const { authUser } = useAuthContext();
+  const isSender = message.senderId._id === authUser._id;
 
   return (
-    <div className={`flex ${sender ? 'justify-end' : 'justify-start'} items-end gap-2`}>
-      {!sender && (
+    <div className={`flex ${isSender ? 'justify-end' : 'justify-start'} items-end gap-2`}>
+      {!isSender && (
         <div className="avatar">
           <div className="w-8 h-8 rounded-full ring-1 ring-gray-200">
             <img
               alt="User avatar"
-              src={selectedConversation?.ProfilePic} />
+              src={message.senderId.ProfilePic || "https://via.placeholder.com/32"}
+              onError={(e) => {
+                e.target.src = "https://via.placeholder.com/32";
+              }}
+            />
           </div>
         </div>
       )}
       
-      <div className={`flex flex-col ${sender ? 'items-end' : 'items-start'} max-w-[70%]`}>
+      <div className={`flex flex-col ${isSender ? 'items-end' : 'items-start'} max-w-[70%]`}>
         <div className={`rounded-2xl px-4 py-2 ${
-          sender 
+          isSender 
             ? 'bg-gradient-to-r from-primary to-secondary text-white rounded-br-none' 
             : 'bg-gray-100 text-gray-800 rounded-bl-none'
         }`}>
-          <p className="text-sm">{message}</p>
+          <p className="text-sm">{message.message}</p>
         </div>
         <div className="flex items-center gap-1 mt-1">
-          <span className="text-xs text-gray-500">{time}</span>
-          {sender && (
+          <span className="text-xs text-gray-500">
+            {new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </span>
+          {isSender && (
             <span className="text-xs text-gray-500">
-              {status === "Delivered" ? "✓" : status === "Seen" ? "✓✓" : ""}
+              {message.status === "delivered" ? "✓" : message.status === "seen" ? "✓✓" : ""}
             </span>
           )}
         </div>

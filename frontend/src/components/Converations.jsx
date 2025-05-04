@@ -4,7 +4,7 @@ import useGetConversation from '../hooks/useGetConversation';
 
 function Conversations() {
   const {loading , conversations} = useGetConversation();
-  console.log("Conversations:" , conversations)
+  // console.log("Conversations:" , conversations)
   
   return (
     <div className='space-y-2 px-2'>

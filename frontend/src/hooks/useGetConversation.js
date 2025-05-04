@@ -20,7 +20,7 @@ const useGetConversation = () => {
             }
             
             const data = await res.json();
-            console.log("Fetched conversations:", data);
+            // console.log("Fetched conversations:", data);
 
             if(data.error){
                 throw new Error(data.error);

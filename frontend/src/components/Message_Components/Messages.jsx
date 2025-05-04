@@ -1,20 +1,38 @@
-import React from 'react'
-import SingleMsg from './singleMsg'
+import React, { useEffect, useRef } from 'react'
+import SingleMsg from './SingleMsg'
+import useGetMessages from '../../hooks/useGetMessage.js';
+import MessageSkelaton from "../skeleton/MessageSkeleton.jsx"
 
 function Messages() {
+  const { messages, loading } = useGetMessages();
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className='h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-gray-400'>
       <div className='px-6 py-4 space-y-4'>
-        <SingleMsg message="Hey there! How are you doing?" sender={false} time="10:30 AM" />
-        <SingleMsg message="I'm doing great! How about you?" sender={true} time="10:31 AM" />
-        <SingleMsg message="Just finished my project, feeling good!" sender={false} time="10:32 AM" />
-        <SingleMsg message="That's awesome! Want to grab coffee later?" sender={true} time="10:33 AM" />
-        <SingleMsg message="Sure, sounds good! Let's meet at 3 PM?" sender={false} time="10:34 AM" />
-        <SingleMsg message="Perfect! See you then!" sender={true} time="10:35 AM" />
-        <SingleMsg message="Looking forward to it!" sender={false} time="10:36 AM" />
-        <SingleMsg message="Me too! Have a great day!" sender={true} time="10:37 AM" />
-        <SingleMsg message="You too! Take care!" sender={false} time="10:38 AM" />
-        <SingleMsg message="Bye!" sender={true} time="10:39 AM" />
+        {!loading && messages?.length > 0 && messages.map((message, index) => (
+          <SingleMsg 
+            key={`${message._id}-${message.createdAt}-${index}`} 
+            message={message} 
+          />
+        ))}
+        
+        {loading && [...Array(3)].map((_, idx) => (
+          <MessageSkelaton key={`skeleton-${idx}`} />
+        ))}
+
+        {!loading && (!messages || messages.length === 0) && (
+          <p className="text-center text-pink-400">Send a Message to Start the conversation</p>
+        )}
+        <div ref={messagesEndRef} />
       </div>
     </div>
   )

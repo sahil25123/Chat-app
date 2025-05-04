@@ -9,6 +9,11 @@ const useSendMessage = () => {
     const { authUser } = useAuthContext();
 
     const sendMessage = async (message) => {
+        if (!selectedConversation?._id) {
+            toast.error("No conversation selected");
+            return null;
+        }
+
         setLoading(true);
         try {
             const res = await fetch(`http://localhost:9000/api/message/send/${selectedConversation._id}`, {
@@ -24,11 +29,17 @@ const useSendMessage = () => {
             const data = await res.json();
             if (data.error) throw new Error(data.error);
 
-            // Update messages in the store
-            setMessages([...messages, data]);
-            return data;
+            // Handle both newMsg and message response formats
+            const newMessage = data.newMsg || data.message;
+            if (newMessage) {
+                setMessages([...messages, newMessage]);
+                return newMessage;
+            }
+            return null;
         } catch (error) {
-            toast.error(error.message);
+            console.error("Error sending message:", error);
+            toast.error(error.message || "Failed to send message");
+            return null;
         } finally {
             setLoading(false);
         }

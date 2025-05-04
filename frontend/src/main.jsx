@@ -17,11 +17,10 @@ function ErrorFallback({ error }) {
 const root = createRoot(document.getElementById('root'))
 
 root.render(
-  <StrictMode>
+  
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <AuthContextProvider>
         <App />
       </AuthContextProvider>
     </ErrorBoundary>
-  </StrictMode>
 )
