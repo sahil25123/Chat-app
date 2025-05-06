@@ -3,11 +3,16 @@ import MessageInput from './MessageInput'
 import Messages from './Messages'
 import { TiMessages } from "react-icons/ti"
 import useConversation from '../../zustand/useConversation'
+import { useSocketContext } from '../../context/SocketContext'
 
 function MessageContainer() {
   const { selectedConversation } = useConversation();
   const noChatSelected = !selectedConversation;
   const messagesEndRef = useRef(null);
+
+
+  const {onlineUsers} = useSocketContext();
+  const isOnline = onlineUsers.includes(selectedConversation._id);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -42,7 +47,7 @@ function MessageContainer() {
           {/* Chat Header */}
           <div className='bg-gradient-to-r from-primary to-secondary px-6 py-4 rounded-t-2xl'>
             <div className='flex items-center gap-4'>
-              <div className="avatar online">
+              <div className="avatar" style={{position: 'relative'}}>
                 <div className="w-12 rounded-full ring ring-white ring-offset-2">
                   <img 
                     src={selectedConversation.ProfilePic || "https://via.placeholder.com/48"} 
@@ -51,11 +56,15 @@ function MessageContainer() {
                       e.target.src = "https://via.placeholder.com/48";
                     }}
                   />
+                  <span
+                    style={{position: 'absolute', top: 2, right: 2, width: 12, height: 12, borderRadius: '50%', border: '2px solid white', backgroundColor: isOnline ? '#22c55e' : '#a3a3a3', display: 'block'}}
+                    title={isOnline ? "Online" : "Offline"}
+                  ></span>
                 </div>
               </div>
               <div className='flex flex-col'>
                 <span className='text-white font-bold text-lg'>{selectedConversation.fullName}</span>
-                <span className='text-white/80 text-sm'>Online</span>
+                <span className='text-white/80 text-sm'>{isOnline ? 'Online' : 'Offline'}</span>
               </div>
             </div>
           </div>
