@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -7,10 +8,14 @@ import msgRoutes from "./Routes/msgRoues.js";
 import userRoutes from "./Routes/userRoutes.js"
 import connectToMongoDB from "./db/connect.js";
 
+
 import {app , server} from "./socket/socket.js"
 
+const __dirname = path.resolve();
+
 dotenv.config();
-// const app = express();
+
+
 
 // CORS configuration
 app.use(cors({
@@ -30,6 +35,13 @@ app.get("/",(req,res)=>{
 app.use("/api/auth",authRoutes);
 app.use("/api/message",msgRoutes);
 app.use("/api/users",userRoutes)
+
+
+app.use(express.static(path.join(__dirname , "/frontend/dist")))
+
+app.get("*" , (req,res)=>{
+    res.sendFile(path.join(__dirname , "frontend" ,"dist" , "index.html"))
+})
 
 server.listen(port,()=>{
     connectToMongoDB();

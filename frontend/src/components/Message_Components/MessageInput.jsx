@@ -76,7 +76,7 @@ function MessageInput() {
           disabled={loading}
           maxLength={1000}
         />
-        <div className='absolute right-12 top-1/2 -translate-y-1/2'>
+        {/* <div className='absolute right-12 top-1/2 -translate-y-1/2'>
           <button
             type='button'
             className='p-2 text-gray-500 hover:text-primary transition-colors'
@@ -84,7 +84,7 @@ function MessageInput() {
           >
             <BsEmojiSmile className='w-5 h-5' />
           </button>
-        </div>
+        </div> */}
         <button
           type='submit'
           disabled={loading || !message.trim()}

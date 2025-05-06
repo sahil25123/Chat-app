@@ -10,7 +10,9 @@ const useConversation = create((set) => ({
         return { selectedConversation };
     }),
     messages: [],
-    setMessages: (messages) => set({messages}),
+    setMessages: (messages) => set((state) => ({
+        messages: typeof messages === 'function' ? messages(state.messages) : messages
+    })),
     addMessage: (message) => set((state) => ({
         messages: [...state.messages, message]
     })),

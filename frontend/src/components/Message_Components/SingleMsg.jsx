@@ -26,9 +26,7 @@ function SingleMsg({ message }) {
             <img
               alt="User avatar"
               src={message.senderId.ProfilePic || "https://via.placeholder.com/32"}
-              onError={(e) => {
-                e.target.src = "https://via.placeholder.com/32";
-              }}
+              onError={(e) => { e.target.src = "https://via.placeholder.com/32"; }}
             />
           </div>
         </div>
@@ -39,7 +37,7 @@ function SingleMsg({ message }) {
           isSender 
             ? 'bg-gradient-to-r from-primary to-secondary text-white rounded-br-none' 
             : 'bg-gray-100 text-gray-800 rounded-bl-none'
-        }`}>
+        } ${shakeCls}`}>
           <p className="text-sm">{message.message}</p>
         </div>
         <div className="flex items-center gap-1 mt-1">
