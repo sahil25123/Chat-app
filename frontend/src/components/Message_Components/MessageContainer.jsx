@@ -5,6 +5,7 @@ import { TiMessages } from "react-icons/ti"
 import useConversation from '../../zustand/useConversation'
 import { useSocketContext } from '../../context/SocketContext'
 
+
 function MessageContainer() {
   const { selectedConversation } = useConversation();
   const noChatSelected = !selectedConversation;
@@ -12,7 +13,7 @@ function MessageContainer() {
 
 
   const {onlineUsers} = useSocketContext();
-  const isOnline = onlineUsers.includes(selectedConversation._id);
+  const isOnline = selectedConversation && onlineUsers.includes(selectedConversation._id);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

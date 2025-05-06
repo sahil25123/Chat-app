@@ -1,6 +1,7 @@
 import { json } from "express";
 import Conversation from "../../models/conversation.js";
 import Message from "../../models/message.js";
+import { getReceiverSocketId, io } from "../../socket/socket.js"
 
 const mesgController = async (req, res) => {
     try {
@@ -36,10 +37,18 @@ const mesgController = async (req, res) => {
             await conversation.save();
         }
 
+
+
         // Populate the sender and receiver details
         const populatedMsg = await Message.findById(newMsg._id)
             .populate('senderId', 'fullName ProfilePic')
             .populate('receiverId', 'fullName ProfilePic');
+
+
+            const  receiverSocketId = getReceiverSocketId(receiverId)
+            if(receiverSocketId){
+                io.to(receiverSocketId).emit("newMessage" , newMsg)
+            }
 
         res.status(201).json({ newMsg: populatedMsg });
     } catch (error) {

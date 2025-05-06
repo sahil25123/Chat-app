@@ -3,12 +3,16 @@ import SingleMsg from './SingleMsg'
 import useGetMessages from '../../hooks/useGetMessage.js';
 import MessageSkelaton from "../skeleton/MessageSkeleton.jsx"
 import useConversation from '../../zustand/useConversation';
+import useListenMessages from '../../hooks/useListenMessages.js';
 
 function Messages() {
   const { messages, loading, error } = useGetMessages();
+  useListenMessages();
   const { selectedConversation } = useConversation();
   const messagesEndRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const safeMessages = Array.isArray(messages) ? messages : [];
 
   const handleScroll = (e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
@@ -57,7 +61,7 @@ function Messages() {
           </div>
         )}
 
-        {!loading && !error && messages?.length > 0 && messages.map((message, index) => (
+        {!loading && !error && safeMessages.length > 0 && safeMessages.map((message, index) => (
           <SingleMsg 
             key={`${message._id}-${message.createdAt}-${index}`} 
             message={message} 

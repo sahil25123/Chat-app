@@ -83,7 +83,7 @@ const useGetMessages = () => {
 		};
 
 		getMessages();
-	}, [selectedConversation?._id, authUser, setMessages]);
+	}, [selectedConversation?._id, authUser]);
 
 	return { messages, loading, error };
 };

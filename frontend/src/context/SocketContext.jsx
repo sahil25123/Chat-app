@@ -17,10 +17,9 @@ export const SocketContextProvider = ({ children }) => {
     useEffect(() => {
         if (authUser) {
             const socket = io("http://localhost:9000", {
-                withCredentials: true
-            },{
-                quer:{
-                    userId :authUser._id
+                withCredentials: true,
+                query: {
+                    userId: authUser._id
                 }
             });
             setSocket(socket);

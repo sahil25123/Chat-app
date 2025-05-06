@@ -32,7 +32,7 @@ const useSendMessage = () => {
             // Handle both newMsg and message response formats
             const newMessage = data.newMsg || data.message;
             if (newMessage) {
-                setMessages([...messages, newMessage]);
+                // Do NOT setMessages here; let the socket event handle it
                 return newMessage;
             }
             return null;

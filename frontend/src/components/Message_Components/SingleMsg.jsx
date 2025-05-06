@@ -8,6 +8,8 @@ function SingleMsg({ message }) {
   
   // Debug logging
   // console.log("Rendering message:", message);
+
+  const shakeCls = message.shouldShake ? "shake" : ""
   
   if (!message || !message.senderId) {
     console.error("Invalid message data:", message);
