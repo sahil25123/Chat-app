@@ -19,7 +19,7 @@ dotenv.config();
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: "https://chatter-box-frontend-fv4n.onrender.com", // Your frontend URL
     credentials: true
 }));
 

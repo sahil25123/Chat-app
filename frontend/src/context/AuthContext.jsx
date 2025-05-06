@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
                 if (storedUser) {
                     const parsedUser = JSON.parse(storedUser);
                     // Verify the user is still valid by making a request
-                    const res = await fetch("http://localhost:9000/api/users", {
+                    const res = await fetch("https://chatter-box-v02s.onrender.com/api/users", {
                         headers: {
                             "Authorization": `Bearer ${parsedUser.token}`,
                             "Content-Type": "application/json"
