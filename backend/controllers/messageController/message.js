@@ -37,18 +37,22 @@ const mesgController = async (req, res) => {
             await conversation.save();
         }
 
-
-
         // Populate the sender and receiver details
         const populatedMsg = await Message.findById(newMsg._id)
             .populate('senderId', 'fullName ProfilePic')
             .populate('receiverId', 'fullName ProfilePic');
 
+        // Get socket IDs for both sender and receiver
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        const senderSocketId = getReceiverSocketId(senderId);
 
-            const  receiverSocketId = getReceiverSocketId(receiverId)
-            if(receiverSocketId){
-                io.to(receiverSocketId).emit("newMessage" , newMsg)
-            }
+        // Emit to both sender and receiver if they are online
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", populatedMsg);
+        }
+        if (senderSocketId) {
+            io.to(senderSocketId).emit("newMessage", populatedMsg);
+        }
 
         res.status(201).json({ newMsg: populatedMsg });
     } catch (error) {
@@ -80,7 +84,7 @@ export const getMessages = async(req,res)=>{
         });
 
         if(!existingConversation) {
-            return res.status(404).json({message: "No conversation found"});
+            return res.status(200).json([]);
         }
 
         if (!existingConversation.message || existingConversation.message.length === 0) {

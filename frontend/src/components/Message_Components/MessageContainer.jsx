@@ -51,10 +51,10 @@ function MessageContainer() {
               <div className="avatar" style={{position: 'relative'}}>
                 <div className="w-12 rounded-full ring ring-white ring-offset-2">
                   <img 
-                    src={selectedConversation.ProfilePic || "https://via.placeholder.com/48"} 
+                    src={selectedConversation.ProfilePic || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"} 
                     alt="user avatar" 
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/48";
+                      e.target.src = "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg";
                     }}
                   />
                   <span

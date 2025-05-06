@@ -25,8 +25,8 @@ function SingleMsg({ message }) {
           <div className="w-8 h-8 rounded-full ring-1 ring-gray-200">
             <img
               alt="User avatar"
-              src={message.senderId.ProfilePic || "https://via.placeholder.com/32"}
-              onError={(e) => { e.target.src = "https://via.placeholder.com/32"; }}
+              src={message.senderId.ProfilePic || "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"}
+              onError={(e) => { e.target.src = "https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg"; }}
             />
           </div>
         </div>

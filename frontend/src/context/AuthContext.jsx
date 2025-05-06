@@ -18,6 +18,10 @@ export const AuthContextProvider = ({ children }) => {
                     const parsedUser = JSON.parse(storedUser);
                     // Verify the user is still valid by making a request
                     const res = await fetch("http://localhost:9000/api/users", {
+                        headers: {
+                            "Authorization": `Bearer ${parsedUser.token}`,
+                            "Content-Type": "application/json"
+                        },
                         credentials: 'include'
                     });
                     

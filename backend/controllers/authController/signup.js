@@ -36,15 +36,15 @@ export const signupController = async (req,res)=>{
         
        if(newUser){
         //Generate JWT Token 
-        genToken_setCookie(newUser._id,res)
+        const token = genToken_setCookie(newUser._id,res)
         await newUser.save();
 
         res.status(201).json({
             _id :newUser._id,
             fullName :newUser.fullName,
             Username:newUser.Username,
-            ProfilePic:newUser.ProfilePic
-
+            ProfilePic:newUser.ProfilePic,
+            token: token
         })
        }
        else{
