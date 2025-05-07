@@ -15,12 +15,14 @@ const __dirname = path.resolve();
 
 dotenv.config();
 
+const allowedOrigins = [
+  "http://localhost:5173", // dev
+  "https://chatter-box-av2e.onrender.com" // your deployed frontend
+];
 
-
-// CORS configuration
 app.use(cors({
-    origin: process.env.NODE_ENV === "production" ? false : "http://localhost:5173",
-    credentials: true
+  origin: allowedOrigins,
+  credentials: true
 }));
 
 app.use(express.json());
