@@ -16,7 +16,7 @@ const useSendMessage = () => {
 
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:9000/api/message/send/${selectedConversation._id}`, {
+            const res = await fetch(`https://chatter-box-av2e.onrender.com/api/message/send/${selectedConversation._id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

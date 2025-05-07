@@ -26,7 +26,7 @@ const useGetMessages = () => {
 			setLoading(true);
 			setError(null);
 			try {
-				const res = await fetch(`http://localhost:9000/api/message/${selectedConversation._id}`, {
+				const res = await fetch(`https://chatter-box-av2e.onrender.com/api/message/${selectedConversation._id}`, {
 					headers: {
 						"Authorization": `Bearer ${authUser.token}`,
 						"Content-Type": "application/json"

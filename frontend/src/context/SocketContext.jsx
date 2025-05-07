@@ -17,7 +17,7 @@ export const SocketContextProvider = ({ children }) => {
         let socketInstance = null;
 
         if (authUser) {
-            socketInstance = io("http://localhost:9000", {
+            socketInstance = io("https://chatter-box-av2e.onrender.com/", {
                 withCredentials: true,
                 query: {
                     userId: authUser._id
