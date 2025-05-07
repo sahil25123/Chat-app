@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://chatter-box-frontend-fv4n.onrender.com", // Frontend URL
+        origin: "http://localhost:5173", // Frontend URL
         methods: ["GET", "POST"],
         credentials: true
     }

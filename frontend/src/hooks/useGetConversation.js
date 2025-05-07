@@ -11,7 +11,7 @@ const useGetConversation = () => {
     const getConversation = async () => {
         setLoading(true);
         try {
-            const res = await fetch("https://chatter-box-v02s.onrender.com/api/users", {
+            const res = await fetch("http://localhost:9000/api/users", {
                 credentials: 'include'
             });
             

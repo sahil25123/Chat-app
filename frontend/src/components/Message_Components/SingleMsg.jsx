@@ -7,7 +7,7 @@ function SingleMsg({ message }) {
   const { authUser } = useAuthContext();
   
   // Debug logging
-  // console.log("Rendering message:", message);
+ 
 
   const shakeCls = message.shouldShake ? "shake" : ""
   

@@ -122,3 +122,4 @@ We welcome contributions! To contribute:
 ## 📄 License
 
 Licensed under the [MIT License](LICENSE).
+

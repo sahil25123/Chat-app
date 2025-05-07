@@ -19,7 +19,7 @@ dotenv.config();
 
 // CORS configuration
 app.use(cors({
-    origin: "https://chatter-box-frontend-fv4n.onrender.com", // Your frontend URL
+    origin: "http://localhost:5173", // Your frontend URL
     credentials: true
 }));
 
@@ -37,11 +37,11 @@ app.use("/api/message",msgRoutes);
 app.use("/api/users",userRoutes)
 
 
-// app.use(express.static(path.join(__dirname , "/frontend/dist")))
+app.use(express.static(path.join(__dirname , "/frontend/dist")))
 
-// app.get("*" , (req,res)=>{
-//     res.sendFile(path.join(__dirname , "frontend" ,"dist" , "index.html"))
-// })
+app.get("*" , (req,res)=>{
+    res.sendFile(path.join(__dirname , "frontend" ,"dist" , "index.html"))
+})
 
 server.listen(port,()=>{
     connectToMongoDB();

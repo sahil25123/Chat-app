@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "build": "npm install"
+    "start": "nodemon backend/index.js",
+    "server": "nodemon backend/index.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend "
   },
   "keywords": [],
   "author": "",
