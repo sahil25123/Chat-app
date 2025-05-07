@@ -19,30 +19,26 @@ dotenv.config();
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: process.env.NODE_ENV === "production" ? false : "http://localhost:5173",
     credentials: true
 }));
 
 app.use(express.json());
 app.use(cookieParser());
 
-const port = process.env.PORT || 8001;
-app.get("/",(req,res)=>{
-    res.send("Server is running ")
-})
+const port = process.env.PORT || 9000;
 
+app.use(express.static(path.join(__dirname, "./frontend/dist")));
 
 app.use("/api/auth",authRoutes);
 app.use("/api/message",msgRoutes);
 app.use("/api/users",userRoutes)
 
 
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-// // Catch-all route for SPA
-// app.get("/:path(*)", (req, res) => {
-//     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-// });
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "./frontend/dist/index.html"));
+});
 
 server.listen(port,()=>{
     connectToMongoDB();
